@@ -1,0 +1,18 @@
+agenda = AgendaClinica()
+
+# Agregar pacientes
+agenda.agregar_turno(Paciente("Ana López", "12345678", "Lunes", "09:00"))
+agenda.agregar_turno(Paciente("Carlos Ruiz", "87654321", "Martes", "10:30"))
+agenda.agregar_turno(Paciente("María Pérez", "11223344", "Lunes", "11:00"))
+
+# Listar todos
+agenda.listar_turnos()
+
+# Buscar por día
+agenda.buscar_turnos_por_dia("Lunes")
+
+# Eliminar un turno
+agenda.eliminar_turno("Carlos Ruiz")
+
+# Ver resumen
+agenda.resumen_por_dia()
