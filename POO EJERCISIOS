@@ -1,0 +1,57 @@
+ejercisio 1 
+class Asignatura {
+    public string Nombre {get;}
+    public double Nota {get; set;}
+    public Asignatura(string nombre) => Nombre = nombre;
+    public override string ToString() => $"En {Nombre} has sacado {Nota}";
+}
+var asignaturas = new List<Asignatura> {
+    new Asignatura("Matemáticas"),
+    new Asignatura("Física"), /* ... */
+};
+foreach(var a in asignaturas) {
+    Console.Write($"Nota en {a.Nombre}: ");
+    a.Nota = double.Parse(Console.ReadLine());
+}
+asignaturas.ForEach(a => Console.WriteLine(a));
+EJERCISIO 2 
+class Loteria {
+    public List<int> Numeros {get;} = new();
+    public void PedirNumeros(int cantidad=6) {
+        Console.WriteLine($"Introduce {cantidad} números:");
+        for(int i=0;i<cantidad;i++){
+            Numeros.Add(int.Parse(Console.ReadLine()));
+        }
+    }
+    public void MostrarOrdenados() {
+        var ord = Numeros.OrderBy(n => n).ToList();
+        Console.WriteLine($"Números ordenados: {string.Join(", ", ord)}");
+    }
+}
+EJERCISIO 3 
+class Curso {
+    public List<Asignatura> Asigs {get;}
+    public Curso(List<Asignatura> lista) => Asigs = lista;
+    public void MostrarSuspensas(double umbral=5.0) {
+        var susp = Asigs.Where(a => a.Nota < umbral).ToList();
+        Console.WriteLine("Sus asignaturas a repetir:");
+        susp.ForEach(a => Console.WriteLine(a.Nombre));
+    }
+}
+EJERCISIO 4 
+class Palindromo {
+    public string Texto {get;}
+    public Palindromo(string t) => Texto = t;
+    public bool EsPalindromo() {
+        var s = new string(Texto.Where(char.IsLetterOrDigit)
+                                  .Select(char.ToLower).ToArray());
+        return s.SequenceEqual(s.Reverse());
+    }
+}
+ EJERECISIO 5 
+class AnalisisPrecios {
+    public List<double> Precios {get;} = new();
+    public AnalisisPrecios(IEnumerable<double> lista) => Precios.AddRange(lista);
+    public double Minimo() => Precios.Min();
+    public double Maximo() => Precios.Max();
+}
