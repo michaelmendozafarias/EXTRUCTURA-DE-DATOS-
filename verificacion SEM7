@@ -1,1 +1,106 @@
+// -----------------------------
+// Ejercicio 1: Verificación de Paréntesis Balanceados
+// -----------------------------
+using System;
+using System.Collections.Generic;
+
+class BalanceoParentesis
+{
+    static bool EstaBalanceado(string expresion)
+    {
+        Stack<char> pila = new Stack<char>();
+
+        foreach (char c in expresion)
+        {
+            if (c == '(' || c == '{' || c == '[')
+            {
+                pila.Push(c);
+            }
+            else if (c == ')' || c == '}' || c == ']')
+            {
+                if (pila.Count == 0) return false;
+
+                char tope = pila.Pop();
+                if ((c == ')' && tope != '(') ||
+                    (c == '}' && tope != '{') ||
+                    (c == ']' && tope != '['))
+                {
+                    return false;
+                }
+            }
+        }
+
+        return pila.Count == 0;
+    }
+
+    static void Main()
+    {
+        Console.WriteLine("Ingrese la expresión matemática:");
+        string expresion = Console.ReadLine();
+
+        if (EstaBalanceado(expresion))
+            Console.WriteLine("Fórmula balanceada.");
+        else
+            Console.WriteLine("Fórmula desbalanceada.");
+    }
+}
+
+// -----------------------------
+// Ejercicio 2: Torres de Hanoi usando Pilas
+// -----------------------------
+using System;
+using System.Collections.Generic;
+
+class Torre
+{
+    public Stack<int> discos = new Stack<int>();
+    public string Nombre { get; }
+
+    public Torre(string nombre)
+    {
+        Nombre = nombre;
+    }
+
+    public void MoverDiscoHacia(Torre destino)
+    {
+        int disco = discos.Pop();
+        destino.discos.Push(disco);
+        Console.WriteLine($"Mover disco {disco} de {Nombre} a {destino.Nombre}");
+    }
+}
+
+class TorresDeHanoi
+{
+    static void Resolver(int n, Torre origen, Torre auxiliar, Torre destino)
+    {
+        if (n == 1)
+        {
+            origen.MoverDiscoHacia(destino);
+        }
+        else
+        {
+            Resolver(n - 1, origen, destino, auxiliar);
+            origen.MoverDiscoHacia(destino);
+            Resolver(n - 1, auxiliar, origen, destino);
+        }
+    }
+
+    static void Main()
+    {
+        Console.Write("Ingrese el número de discos: ");
+        int n = int.Parse(Console.ReadLine());
+
+        Torre A = new Torre("A");
+        Torre B = new Torre("B");
+        Torre C = new Torre("C");
+
+        for (int i = n; i >= 1; i--)
+        {
+            A.discos.Push(i);
+        }
+
+        Console.WriteLine("\nSecuencia de movimientos:");
+        Resolver(n, A, B, C);
+    }
+}
 
