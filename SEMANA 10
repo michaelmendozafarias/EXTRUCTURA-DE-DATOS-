@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        // Conjunto total de ciudadanos ficticios (500)
+        HashSet<string> ciudadanos = new HashSet<string>();
+        for (int i = 1; i <= 500; i++)
+        {
+            ciudadanos.Add("Ciudadano " + i);
+        }
+
+        // Conjunto de vacunados con Pfizer (75)
+        HashSet<string> pfizer = new HashSet<string>();
+        for (int i = 1; i <= 75; i++)
+        {
+            pfizer.Add("Ciudadano " + i); // Ejemplo: primeros 75
+        }
+
+        // Conjunto de vacunados con AstraZeneca (75)
+        HashSet<string> astrazeneca = new HashSet<string>();
+        for (int i = 50; i < 125; i++) // solapamos algunos para simular doble dosis
+        {
+            astrazeneca.Add("Ciudadano " + i);
+        }
+
+        // Operaciones de teoría de conjuntos:
+        // 1. Ciudadanos que no se han vacunado
+        var noVacunados = ciudadanos.Except(pfizer.Union(astrazeneca));
+
+        // 2. Ciudadanos que han recibido ambas dosis
+        var ambasDosis = pfizer.Intersect(astrazeneca);
+
+        // 3. Ciudadanos que solo han recibido Pfizer
+        var soloPfizer = pfizer.Except(astrazeneca);
+
+        // 4. Ciudadanos que solo han recibido AstraZeneca
+        var soloAstraZeneca = astrazeneca.Except(pfizer);
+
+        // Mostrar resultados
+        Console.WriteLine("=== Ciudadanos no vacunados ===");
+        foreach (var c in noVacunados) Console.WriteLine(c);
+
+        Console.WriteLine("\n=== Ciudadanos con ambas dosis ===");
+        foreach (var c in ambasDosis) Console.WriteLine(c);
+
+        Console.WriteLine("\n=== Ciudadanos solo Pfizer ===");
+        foreach (var c in soloPfizer) Console.WriteLine(c);
+
+        Console.WriteLine("\n=== Ciudadanos solo AstraZeneca ===");
+        foreach (var c in soloAstraZeneca) Console.WriteLine(c);
+    }
+}
