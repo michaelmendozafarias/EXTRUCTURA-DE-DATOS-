@@ -1,0 +1,33 @@
+# Registro de libros en una biblioteca usando diccionarios y conjuntos
+
+biblioteca = {}
+
+def registrar_libro(categoria, titulo):
+    if categoria not in biblioteca:
+        biblioteca[categoria] = set()
+    biblioteca[categoria].add(titulo)
+
+def mostrar_biblioteca():
+    for categoria, libros in biblioteca.items():
+        print(f"Categoría: {categoria}")
+        for libro in libros:
+            print(f" - {libro}")
+
+def consultar_categoria(categoria):
+    return biblioteca.get(categoria, set())
+
+# Ejemplo de uso
+registrar_libro("Novela", "Cien años de soledad")
+registrar_libro("Novela", "Don Quijote de la Mancha")
+registrar_libro("Ciencia", "Breve historia del tiempo")
+registrar_libro("Ciencia", "El origen de las especies")
+
+mostrar_biblioteca()
+print("Consulta en categoría 'Novela':", consultar_categoria("Novela"))
+Categoría: Novela
+ - Don Quijote de la Mancha
+ - Cien años de soledad
+Categoría: Ciencia
+ - Breve historia del tiempo
+ - El origen de las especies
+Consulta en categoría 'Novela': {'Don Quijote de la Mancha', 'Cien años de soledad'}
